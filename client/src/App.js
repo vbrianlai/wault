@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Spotify from 'spotify-web-api-js';
-
 import './App.css';
 import SearchBar from './SearchBar';
+import NavBar from './NavBar';
 
 const spotifyWebApi = new Spotify();
 
@@ -22,10 +22,11 @@ class App extends Component{
       loggedIn: params.access_token===spotifyWebApi.getAccessToken() ? true : false,
       username: '',
       nowPlaying: {
-        name: 'Not Checked',
+        name: 'Not checked',
         image: ''
       },
-      searchParams: ''
+      searchParams: '',
+      access_token: spotifyWebApi.getAccessToken() || null
     }
 
     this.getNowPlaying = this.getNowPlaying.bind(this);
@@ -83,25 +84,13 @@ class App extends Component{
       });
   }
 
+
   render() {
-    // let user = spotifyWebApi.getMe().then( res => res.display_name);
-    console.log(this.state.username);
     return (
       <div className="App">
-      {
-        (!this.state.loggedIn) ? 
-        <a href='http://localhost:8888'>
-          <button>Login with Spotify</button>
-        </a>
-        :
-        <div>
-          <div>You are logged in as {this.state.username}</div>
-          <a href='http://localhost:8888'>
-            <button>Login with a different Spotify account</button>
-          </a>
-        </div>
-          
-      }
+        <NavBar loggedIn={this.state.loggedIn} username={this.state.username}/>
+        <SearchBar token={spotifyWebApi.getAccessToken()}/>
+      
         <div>Now Playing: {this.state.nowPlaying.name}</div>
         <div>
           <img src={this.state.nowPlaying.image} style={{width: 100}}/>
@@ -110,11 +99,6 @@ class App extends Component{
           Check Now Playing
         </button>
 
-        {/* <form onSubmit={this.handleSubmit}>
-          <input type='text' onChange={this.handleChange} value = {this.state.searchParams}/>
-          <button>Submit</button>
-        </form> */}
-        <SearchBar token={spotifyWebApi.getAccessToken()}/>
         
         
       </div>

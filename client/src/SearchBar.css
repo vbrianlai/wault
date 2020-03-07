@@ -1,0 +1,33 @@
+input[type=text]{
+    text-align: center;
+    font: inherit;
+    border: 6px solid #a3d8d6;
+    padding: 13px 12px;
+    font-size: 15px;
+    box-shadow: 0 1px 1px #DDD;
+    width: 80%;
+    outline: none;
+    display: block;
+    color: #788585;
+    margin: 0 auto 20px;
+  }
+  .searchResults {
+    list-style: none;
+    /* display: inline-block; */
+    width: 420px;
+    text-align: center;
+    margin: auto;
+  }
+ .searchResults li {
+    display: block;
+    padding: 15px 20px;
+    background-color: #F8F8F8;
+    color: #788585;
+    margin-bottom: 3px;
+    position: relative;
+    transition: 0.3s;
+  }
+.searchResults li:hover {
+    background-color: #d8f2f1;
+    cursor: pointer;
+}
