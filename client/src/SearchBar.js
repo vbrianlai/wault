@@ -38,7 +38,7 @@ export default class SearchBar extends Component {
     }
 
     spotifySearch(str) {
-        spotifyWebApi.searchTracks(str)
+        spotifyWebApi.searchTracks(str, {limit: 5})
           .then((data) => {
             let results = [];
             data.tracks.items.forEach(item => {results.push(item)});
@@ -47,6 +47,10 @@ export default class SearchBar extends Component {
           }, (err) => {
             console.log(err);
           })
+    }
+
+    renderTrackList() {
+        
     }
 
 
@@ -59,7 +63,7 @@ export default class SearchBar extends Component {
         return (
             <div>
                 <input type='text' onChange={this.handleChange} value={this.state.searchParams} placeholder='Search for songs on Spotify'/>
-                {this.state.searchParams.length > 0 && <TrackList results={this.state.searchResults}/>}
+                {this.state.searchParams.length > 0 && <TrackList results={this.state.searchResults} updateLikes={this.props.updateLikes}/>}
             </div>
             
             

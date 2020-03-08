@@ -3,6 +3,7 @@ import Spotify from 'spotify-web-api-js';
 import './App.css';
 import SearchBar from './SearchBar';
 import NavBar from './NavBar';
+import User from './User';
 
 const spotifyWebApi = new Spotify();
 
@@ -25,11 +26,14 @@ class App extends Component{
         name: 'Not checked',
         image: ''
       },
+      userImage:'',
       searchParams: '',
+      likedSongs: [],
       access_token: spotifyWebApi.getAccessToken() || null
     }
 
     this.getNowPlaying = this.getNowPlaying.bind(this);
+    this.updateLikes = this.updateLikes.bind(this);
   }
   
   
@@ -57,7 +61,12 @@ class App extends Component{
 
     spotifyWebApi.getMe()
       .then(res => {
-          this.setState({username: res.display_name});
+          this.setState(
+            {
+              username: res.display_name,
+              userImage: res.images[0].url
+            }
+          );
           console.log(res);
       });
     
@@ -84,12 +93,20 @@ class App extends Component{
       });
   }
 
+  updateLikes(likes) {
+
+    this.setState({
+      likedSongs: [likes]
+    });
+  }
+
 
   render() {
     return (
       <div className="App">
-        <NavBar loggedIn={this.state.loggedIn} username={this.state.username}/>
-        <SearchBar token={spotifyWebApi.getAccessToken()}/>
+        <NavBar loggedIn={this.state.loggedIn} username={this.state.username}/> 
+        <User userImage={this.state.userImage} likedSongs={this.state.likedSongs}/>
+        <SearchBar token={spotifyWebApi.getAccessToken()} updateLikes={this.updateLikes}/>
       
         <div>Now Playing: {this.state.nowPlaying.name}</div>
         <div>
@@ -98,7 +115,7 @@ class App extends Component{
         <button onClick={this.getNowPlaying}>
           Check Now Playing
         </button>
-
+        
         
         
       </div>

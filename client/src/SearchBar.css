@@ -9,16 +9,21 @@ input[type=text]{
     outline: none;
     display: block;
     color: #788585;
-    margin: 0 auto 20px;
+    margin: 0 auto;
   }
-  .searchResults {
+.searchResults {
+    z-index: -1;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute;
     list-style: none;
-    /* display: inline-block; */
+    display: inline-block;
     width: 420px;
     text-align: center;
-    margin: auto;
-  }
- .searchResults li {
+    
+}
+.searchResults li {
     display: block;
     padding: 15px 20px;
     background-color: #F8F8F8;
@@ -26,7 +31,7 @@ input[type=text]{
     margin-bottom: 3px;
     position: relative;
     transition: 0.3s;
-  }
+}
 .searchResults li:hover {
     background-color: #d8f2f1;
     cursor: pointer;
