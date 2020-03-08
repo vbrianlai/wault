@@ -105,17 +105,17 @@ class App extends Component{
     return (
       <div className="App">
         <NavBar loggedIn={this.state.loggedIn} username={this.state.username}/> 
-        <User userImage={this.state.userImage} likedSongs={this.state.likedSongs}/>
+        
         <SearchBar token={spotifyWebApi.getAccessToken()} updateLikes={this.updateLikes}/>
       
-        <div>Now Playing: {this.state.nowPlaying.name}</div>
+        {/* <div>Now Playing: {this.state.nowPlaying.name}</div>
         <div>
           <img src={this.state.nowPlaying.image} style={{width: 100}}/>
         </div>
         <button onClick={this.getNowPlaying}>
           Check Now Playing
-        </button>
-        
+        </button> */}
+        <User userImage={this.state.userImage} likedSongs={this.state.likedSongs}/>
         
         
       </div>

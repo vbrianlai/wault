@@ -1,3 +1,17 @@
+.User {
+    display: inline-block;
+    position: absolute;
+    top: 65%;
+    left: 0;
+    right: 0;
+    /* width: 50%; */
+    margin: auto;
+    /* top: 70%; */
+    /* margin: auto; */
+    /* display: inline-block; */
+    /* align-items: center; */
+}
+
 .User img {
     height: 200px;
     width: 200px;

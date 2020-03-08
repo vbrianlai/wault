@@ -21,11 +21,11 @@ export default class User extends Component {
             <Popover>
               <Popover.Title as="h3">what are u listening to?</Popover.Title>
               <Popover.Content>
-                <ul>
+                
                     {this.state.likedSongs.map(song => {
-                        return <li>{song}</li>
+                        return <a>{song}</a>
                     })}
-                </ul>
+                
               </Popover.Content>
             </Popover>
           );
