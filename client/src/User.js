@@ -20,13 +20,13 @@ export default class User extends Component {
         const popover = (
             <Popover>
               <Popover.Title as="h3">what are u listening to?</Popover.Title>
-              <Popover.Content>
+              {/* <Popover.Content> */}
                 
-                    {this.state.likedSongs.map(song => {
-                        return <a>{song}</a>
+                    {this.state.likedSongs.map((song, i) => {
+                        return <Popover.Content><a>{i+1}. {song}</a></Popover.Content>
                     })}
                 
-              </Popover.Content>
+              {/* </Popover.Content> */}
             </Popover>
           );
 

@@ -57,7 +57,6 @@ class App extends Component{
     //   }
     // }).then((response) => response.json())
     // .then(data => {console.log(data)});
-    
 
     spotifyWebApi.getMe()
       .then(res => {
@@ -69,11 +68,6 @@ class App extends Component{
           );
           console.log(res);
       });
-    
-    // spotifyWebApi.getMyRecentlyPlayedTracks()
-    //   .then(res => {
-    //       console.log(res);
-    //   });
   }
 
   getNowPlaying() {
@@ -93,10 +87,16 @@ class App extends Component{
       });
   }
 
-  updateLikes(likes) {
-
+  updateLikes(likedSong) {
+    let likedSongs = this.state.likedSongs;
+    if (likedSongs.length === 3) {
+      likedSongs.shift();
+      likedSongs.push(likedSong)
+    } else {
+      likedSongs.push(likedSong);
+    }
     this.setState({
-      likedSongs: [likes]
+      likedSongs: [...likedSongs]
     });
   }
 

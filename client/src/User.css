@@ -1,15 +1,16 @@
 .User {
-    display: inline-block;
+    /* display: inline-block;
     position: absolute;
     top: 65%;
     left: 0;
     right: 0;
-    /* width: 50%; */
-    margin: auto;
-    /* top: 70%; */
-    /* margin: auto; */
-    /* display: inline-block; */
-    /* align-items: center; */
+    margin: auto; */
+    display: inline-block;       /* Display inline block */
+    text-align: center;          /* For button text center */
+    position: absolute;          /* Position absolute */
+    top: 65%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .User img {
@@ -17,5 +18,5 @@
     width: 200px;
     box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.1);
     border-radius: 50%;
-    transition: 0.4s filter ease;
+    /* transition: 0.4s filter ease; */
 }
