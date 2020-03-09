@@ -8,6 +8,7 @@ export default class User extends Component {
         this.state = {
             likedSongs: this.props.likedSongs
         }
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -16,17 +17,20 @@ export default class User extends Component {
           this.setState({ likedSongs: this.props.likedSongs });
         }
     }
+
+    handleClick(song) {
+        this.props.playSong(song);
+    }
+
     render() {
+
+        // overlay will show user's liked songs
         const popover = (
-            <Popover>
+            <Popover className='User-popover'>
               <Popover.Title as="h3">what are u listening to?</Popover.Title>
-              {/* <Popover.Content> */}
-                
-                    {this.state.likedSongs.map((song, i) => {
-                        return <Popover.Content><a>{i+1}. {song}</a></Popover.Content>
-                    })}
-                
-              {/* </Popover.Content> */}
+                {this.state.likedSongs.map((song, i) => {
+                    return <Popover.Content className='User-popover-content' onClick={() => this.handleClick(song)}><a>{i+1}. {song.name}</a></Popover.Content>
+                })}
             </Popover>
           );
 

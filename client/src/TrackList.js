@@ -8,9 +8,9 @@ export default class TrackList extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick(e) {
-        console.log(e.currentTarget.textContent);
-        this.props.updateLikes(e.currentTarget.textContent);
+    handleClick(song) {
+        console.log(song);
+        this.props.updateLikes(song);
     }
 
     render() {
@@ -19,13 +19,12 @@ export default class TrackList extends Component {
                 <ul className='searchResults'>
                     {results.map(result => {
                         return (
-                            <li id='result' key={result.id} onClick={this.handleClick}>
-                                <a value={result.name}>{result.name} by {result.artists[0].name}</a>
+                            <li id='result' key={result.id} onClick={() => this.handleClick(result)}>
+                                <a>{result.name} by {result.artists[0].name}</a>
                             </li>
                         )
                     })}
                 </ul>
-            
         )
     }
 }

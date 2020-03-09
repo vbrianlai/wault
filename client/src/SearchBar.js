@@ -14,48 +14,27 @@ export default class SearchBar extends Component {
             showResults: false
         }
         this.handleChange = this.handleChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    // handleSubmit(e) {
-    //     e.preventDefault();
-    
-    //     // search tracks on spotify, update searchResults
-    //     const searchParams = this.state.searchParams;
-    //     spotifyWebApi.searchTracks(searchParams)
-    //       .then((data) => {
-    //         let results = [];
-    //         data.tracks.items.forEach(item => {results.push(item)});
-    //         this.setState({searchResults: results});
-    //       }, (err) => {
-    //         console.log(err);
-    //       })
-    // }
-
     handleChange(e) {
-    // console.log(e.target.value);
-    this.setState({searchParams: e.target.value});
+        this.setState({searchParams: e.target.value});
     }
 
     spotifySearch(str) {
         spotifyWebApi.searchTracks(str, {limit: 5})
           .then((data) => {
             let results = [];
-            data.tracks.items.forEach(item => {results.push(item)});
+            data.tracks.items.forEach(item => {
+                results.push(item);
+            });
             this.setState({searchResults: results});
-            // return results;
           }, (err) => {
             console.log(err);
           })
     }
 
-    renderTrackList() {
-        
-    }
-
-
     render() {
-
+        // Dynamic search while search params are non-empty
         if (this.state.searchParams.length > 0) {
             this.spotifySearch(this.state.searchParams);
         }

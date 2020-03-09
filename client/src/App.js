@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Spotify from 'spotify-web-api-js';
+import {Button} from 'react-bootstrap';
 import './App.css';
 import SearchBar from './SearchBar';
 import NavBar from './NavBar';
@@ -34,6 +35,7 @@ class App extends Component{
 
     this.getNowPlaying = this.getNowPlaying.bind(this);
     this.updateLikes = this.updateLikes.bind(this);
+    this.playSong = this.playSong.bind(this);
   }
   
   
@@ -100,6 +102,14 @@ class App extends Component{
     });
   }
 
+  playSong(song) {
+    console.log(song.uri);
+    let songs = {
+      'uris': [`${song.uri}`]
+    };
+    spotifyWebApi.play(songs);
+  }
+
 
   render() {
     return (
@@ -107,15 +117,8 @@ class App extends Component{
         <NavBar loggedIn={this.state.loggedIn} username={this.state.username}/> 
         
         <SearchBar token={spotifyWebApi.getAccessToken()} updateLikes={this.updateLikes}/>
-      
-        {/* <div>Now Playing: {this.state.nowPlaying.name}</div>
-        <div>
-          <img src={this.state.nowPlaying.image} style={{width: 100}}/>
-        </div>
-        <button onClick={this.getNowPlaying}>
-          Check Now Playing
-        </button> */}
-        <User userImage={this.state.userImage} likedSongs={this.state.likedSongs}/>
+
+        <User userImage={this.state.userImage} likedSongs={this.state.likedSongs} playSong={this.playSong}/>
         
         
       </div>

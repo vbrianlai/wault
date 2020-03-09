@@ -20,3 +20,8 @@
     border-radius: 50%;
     /* transition: 0.4s filter ease; */
 }
+
+.User-popover-content:hover {
+    background-color: aqua;
+    cursor: pointer;
+}
