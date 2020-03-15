@@ -23,15 +23,26 @@ export default class NowPlaying extends Component {
     render() {
         return (
             <div className='NowPlaying text-center'>
-                {/* <Card>
-                    <Card.Img variant='top' src=''/>
-                </Card> */}
+                
                 <div style={{fontFamily: 'Roboto Slab, serif'}}>#NP:</div>
-                <div style={{fontFamily: 'Roboto Slab, serif'}}>
-                    {/* {this.props.currentSong.hasOwnProperty('item') ? this.props.currentSong.item.name : 'Loading'} */}
-                    {Object.keys(this.state.currentSong).length > 0 ? 
-                        `${this.state.currentSong.name} by ${this.state.currentSong.artists[0].name}`
-                        : "Play your friend's song!"}
+                <div style={{fontFamily: 'Roboto Slab, serif'}} className='NowPlaying-card'>
+
+                    {Object.keys(this.state.currentSong).length > 0 ?
+                        <Card style={{width: '8rem'}} className='mx-auto'>
+                            <Card.Img variant='top' src={this.state.currentSong.album.images[0].url}/>
+                            {/* <Card.ImgOverlay> */}
+                                <Card.Title style={{fontSize: '1rem'}}>
+                                    {this.state.currentSong.name}
+                                </Card.Title>
+                                <Card.Text style={{fontSize: '0.5rem'}}>
+                                    {this.state.currentSong.artists[0].name}
+                                </Card.Text>
+
+                            {/* </Card.ImgOverlay> */}
+                        </Card>
+                        :
+                        'Play your friends song!'
+                    }
                 </div>
             </div>
         )
