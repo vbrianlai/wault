@@ -17,6 +17,9 @@ export default class SearchBar extends Component {
     }
 
     handleChange(e) {
+        if (e.target.value.length > 0) {
+            this.spotifySearch(e.target.value);
+        }
         this.setState({searchParams: e.target.value});
     }
 
@@ -34,14 +37,9 @@ export default class SearchBar extends Component {
     }
 
     render() {
-        // Dynamic search while search params are non-empty
-        if (this.state.searchParams.length > 0) {
-            this.spotifySearch(this.state.searchParams);
-        }
-
         return (
-            <div>
-                <input type='text' onChange={this.handleChange} value={this.state.searchParams} placeholder='Search for songs on Spotify'/>
+            <div >
+                <input className='mt-3 mx-auto' type='text' onChange={this.handleChange} value={this.state.searchParams} placeholder='Search for songs on Spotify'/>
                 {this.state.searchParams.length > 0 && <TrackList results={this.state.searchResults} updateLikes={this.props.updateLikes}/>}
             </div>
             

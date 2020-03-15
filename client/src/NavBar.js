@@ -28,7 +28,7 @@ export default class NavBar extends Component {
                     
                     <ul className='navbar-nav'>
                         {
-                            !this.props.loggedIn ? 
+                            !this.props.username.length > 0 ? 
                                 <li className='nav-item'>
                                     <a className='nav-link' href='http://localhost:8888/login'>Login with Spotify</a>
                                 </li>

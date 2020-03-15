@@ -1,27 +1,52 @@
 .User {
-    /* display: inline-block;
-    position: absolute;
-    top: 65%;
-    left: 0;
-    right: 0;
-    margin: auto; */
     display: inline-block;       /* Display inline block */
     text-align: center;          /* For button text center */
     position: absolute;          /* Position absolute */
-    top: 65%;
+    top: 80%;
     left: 50%;
     transform: translateX(-50%);
 }
 
-.User img {
-    height: 200px;
-    width: 200px;
-    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.1);
+.User .User-play {
+    position: absolute;
+    left: -15px;
+    display: flex;
+}
+
+
+.spinning {
+    animation: start-spinning 8s linear infinite;
+}
+
+@keyframes start-spinning {
+    to {
+      transform: rotate(360deg);
+    }
+}
+
+.User-icon-pic {
+    height: 150px;
+    width: 150px;
+    position: relative;
+    overflow: hidden;
     border-radius: 50%;
-    /* transition: 0.4s filter ease; */
+    box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.72);
+    cursor: pointer;
+}
+
+.User-icon-pic img {
+    height: inherit;
+    width: inherit;
+    border-radius: 50%;
 }
 
 .User-popover-content:hover {
     background-color: aqua;
+    border-radius: 5%;
     cursor: pointer;
+}
+
+.User-popover-content{
+    display: flex;
+    align-items: center;
 }

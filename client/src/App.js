@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import Spotify from 'spotify-web-api-js';
-import {Button} from 'react-bootstrap';
 import './App.css';
 import SearchBar from './SearchBar';
 import NavBar from './NavBar';
 import User from './User';
+import NowPlaying from './NowPlaying';
 
 const spotifyWebApi = new Spotify();
 
@@ -23,19 +23,17 @@ class App extends Component{
     this.state = {
       loggedIn: params.access_token===spotifyWebApi.getAccessToken() ? true : false,
       username: '',
-      nowPlaying: {
-        name: 'Not checked',
-        image: ''
-      },
-      userImage:'',
-      searchParams: '',
+      userImage: null,
       likedSongs: [],
-      access_token: spotifyWebApi.getAccessToken() || null
+      access_token: spotifyWebApi.getAccessToken() || null,
+      playbackState: {},
+      currentSong: {}
     }
 
-    this.getNowPlaying = this.getNowPlaying.bind(this);
     this.updateLikes = this.updateLikes.bind(this);
+    this.updateCurrent = this.updateCurrent.bind(this);
     this.playSong = this.playSong.bind(this);
+    // this.getCurrentPlaybackState = this.getCurrentPlaybackState.bind(this);
   }
   
   
@@ -70,24 +68,18 @@ class App extends Component{
           );
           console.log(res);
       });
-  }
 
-  getNowPlaying() {
-    spotifyWebApi.getMyCurrentPlaybackState()
+      spotifyWebApi.getMyCurrentPlaybackState()
       .then(response => {
-        let song = response ? {name: response.item.name, image: response.item.album.images[0].url} : {name: 'unidentified', image : 'unidentified'}
-        this.setState({nowPlaying: song});
+        this.setState({playbackState: response})
       })
   }
 
-  getUser() {
-    spotifyWebApi.getMe()
-      .then(response => {
-        this.setState({
-          username: response.display_name
-        })
-      });
-  }
+  // async getCurrentPlaybackState() {
+  //   let playback = await spotifyWebApi.getMyCurrentPlaybackState();
+  //   return playback;
+  // }
+
 
   updateLikes(likedSong) {
     let likedSongs = this.state.likedSongs;
@@ -103,24 +95,44 @@ class App extends Component{
   }
 
   playSong(song) {
-    console.log(song.uri);
-    let songs = {
-      'uris': [`${song.uri}`]
-    };
-    spotifyWebApi.play(songs);
+    console.log(song || 'Resume');
+    if (!song){
+      spotifyWebApi.play()
+    } else {
+      let songs = {
+        'uris': [`${song.uri}`]
+      };
+      spotifyWebApi.play(songs);
+    }
+  }
+
+  pauseSong() {
+    spotifyWebApi.pause();
+  }
+
+  updateCurrent(song) {
+    console.log(song);
+    this.setState({currentSong: song});
   }
 
 
   render() {
     return (
       <div className="App">
-        <NavBar loggedIn={this.state.loggedIn} username={this.state.username}/> 
+        <NavBar username={this.state.username}/> 
         
         <SearchBar token={spotifyWebApi.getAccessToken()} updateLikes={this.updateLikes}/>
 
-        <User userImage={this.state.userImage} likedSongs={this.state.likedSongs} playSong={this.playSong}/>
-        
-        
+        <NowPlaying currentSong={this.state.currentSong}/>
+
+        <User 
+          userImage={this.state.userImage} 
+          likedSongs={this.state.likedSongs} 
+          playSong={this.playSong} 
+          pauseSong={this.pauseSong}
+          updateCurrent={this.updateCurrent}
+        />
+
       </div>
     );
   }
