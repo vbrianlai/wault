@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import Spotify from 'spotify-web-api-js';
 import './App.css';
-import SearchBar from './SearchBar';
-import NavBar from './NavBar';
-import User from './User';
-import NowPlaying from './NowPlaying';
+import SearchBar from './components/SearchBar';
+import NavBar from './components/NavBar';
+import User from './components/User';
+import NowPlaying from './components/NowPlaying';
+import SignIn from './components/SignIn';
 
 const spotifyWebApi = new Spotify();
 
@@ -27,7 +28,8 @@ class App extends Component{
       likedSongs: [],
       access_token: spotifyWebApi.getAccessToken() || null,
       playbackState: {},
-      currentSong: {}
+      currentSong: {},
+      hashParams: params
     }
 
     this.updateLikes = this.updateLikes.bind(this);
@@ -47,6 +49,9 @@ class App extends Component{
     return hashParams;
   }
 
+  /**
+   * After component mounts, obtain User's info and playback state
+   */
   componentDidMount() {
 
     // console.log(spotifyWebApi.getAccessToken());
@@ -75,12 +80,11 @@ class App extends Component{
       })
   }
 
-  // async getCurrentPlaybackState() {
-  //   let playback = await spotifyWebApi.getMyCurrentPlaybackState();
-  //   return playback;
-  // }
 
-
+  /**
+   * Handles adding selected song to likedSongs
+   * @param {*} likedSong - song to add
+   */
   updateLikes(likedSong) {
     let likedSongs = this.state.likedSongs;
     if (likedSongs.length === 3) {
@@ -94,6 +98,10 @@ class App extends Component{
     });
   }
 
+  /**
+   * Handles playing a selected song. If no song is selected, then Spotify will play the current song in queue
+   * @param {*} song - song to play
+   */
   playSong(song) {
     console.log(song || 'Resume');
     if (!song){
@@ -106,10 +114,17 @@ class App extends Component{
     }
   }
 
+  /**
+   * Pauses current track
+   */
   pauseSong() {
     spotifyWebApi.pause();
   }
 
+  /**
+   * Keeps track of current song playing
+   * @param {*} song - current song
+   */
   updateCurrent(song) {
     console.log(song);
     this.setState({currentSong: song});
@@ -122,6 +137,9 @@ class App extends Component{
         <NavBar username={this.state.username}/> 
         
         <SearchBar token={spotifyWebApi.getAccessToken()} updateLikes={this.updateLikes}/>
+
+        <SignIn/>
+        
 
         <NowPlaying currentSong={this.state.currentSong}/>
 

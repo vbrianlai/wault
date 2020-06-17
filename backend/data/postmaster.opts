@@ -1,0 +1,1 @@
+/usr/local/Cellar/postgresql/12.2_1/bin/postgres "-D" "/Users/brianlai/Desktop/wault/backend/data"
